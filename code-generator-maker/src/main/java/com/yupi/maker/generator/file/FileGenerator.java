@@ -30,8 +30,8 @@ public class FileGenerator {
         "generateType": "static"
       },
       {
-        "inputPath": "README.md",
-        "outputPath": "README.md",
+        "inputPath": "README.md.ftl.md",
+        "outputPath": "README.md.ftl.md",
         "type": "file",
         "generateType": "static"
       }
