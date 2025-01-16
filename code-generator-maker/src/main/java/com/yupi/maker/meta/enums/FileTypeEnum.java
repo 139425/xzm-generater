@@ -2,7 +2,8 @@ package com.yupi.maker.meta.enums;
 
 public enum FileTypeEnum {
     FILE("文件","file"),
-    DIR("目录","dir");
+    DIR("目录","dir"),
+    GROUP("文件组","group");
 
     private String text;
 
