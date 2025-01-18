@@ -11,33 +11,6 @@ public class FileGenerator {
     public static void doGenerator(Object model) throws TemplateException, IOException {
 
 
-        /*
-        * "fileConfig": {
-    "inputRootPath": "/Users/yupi/Code/yuzi-generator/yuzi-generator-demo-projects/acm-template-pro",
-    "outputRootPath": "generated",
-    "type": "dir",
-    "files": [
-      {
-        "inputPath": "src/com/yupi/acm/MainTemplate.java.ftl",
-        "outputPath": "src/com/yupi/acm/MainTemplate.java",
-        "type": "file",
-        "generateType": "dynamic"
-      },
-      {
-        "inputPath": ".gitignore",
-        "outputPath": ".gitignore",
-        "type": "file",
-        "generateType": "static"
-      },
-      {
-        "inputPath": "README.md.ftl.md",
-        "outputPath": "README.md.ftl.md",
-        "type": "file",
-        "generateType": "static"
-      }
-    ]
-  }
-}*/
 
         String projectPath = System.getProperty("user.dir")+ File.separator + "code-generator-basic";
         File parentFile = new File(projectPath).getParentFile();
