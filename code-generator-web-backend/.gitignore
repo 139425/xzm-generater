@@ -1,5 +1,7 @@
 ### @author <a href="https://github.com/liyupi">程序员鱼皮</a> ###
 ### @from <a href="https://yupi.icu">编程导航知识星球</a> ###
+src/main/resources/xxx.yml
+
 
 HELP.md
 target/
@@ -145,3 +147,5 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
+
+/src/main/resources/application-local.yml
