@@ -4,10 +4,10 @@
   "basePackage": "com.yupi",
   "version": "1.0",
   "author": "yupi",
-  "createTime": "2025-1-13",
+  "createTime": "2027-11-22",
   "fileConfig": {
     "inputRootPath": ".source/acm-template-pro",
-    "outputRootPath": "C:/Java/code-generator/acm-template-pro",
+    "outputRootPath": "generated",
     "sourceRootPath": "C:/Java/code-generator/code-generator-demo-projects/acm-template-pro",
     "type": "dir",
     "files": [
@@ -80,3 +80,4 @@
     ]
   }
 }
+

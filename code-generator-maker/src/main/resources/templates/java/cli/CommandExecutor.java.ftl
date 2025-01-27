@@ -3,6 +3,7 @@ package ${basePackage}.cli;
 import ${basePackage}.cli.command.GeneratorCommand;
 import ${basePackage}.cli.command.ListCommand;
 import ${basePackage}.cli.command.ConfigCommand;
+import ${basePackage}.cli.command.JsonGenerateCommand;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
@@ -18,7 +19,8 @@ private final CommandLine commandLine;
 commandLine = new CommandLine(this)
 .addSubcommand(new GeneratorCommand())
 .addSubcommand(new ConfigCommand())
-.addSubcommand(new ListCommand());
+.addSubcommand(new ListCommand())
+.addSubcommand(new JsonGenerateCommand());
 }
 
 @Override

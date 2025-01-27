@@ -48,7 +48,7 @@ public class DynamicGenerator {
         Writer out = new FileWriter(outputPath);
         template.process(model, out);
 
-        // 生成文件后别忘了关闭哦
+        // 关流
         out.close();
     }
 

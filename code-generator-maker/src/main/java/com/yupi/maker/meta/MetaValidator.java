@@ -137,7 +137,7 @@ public class MetaValidator {
 
     public static void validAndFillMetaRoot(Meta meta) {
         // 校验并填充默认值
-        String name = StrUtil.blankToDefault(meta.getName(), "my-generator");
+        String name = StrUtil.blankToDefault(meta.getName(), "my-generator.bat");
         String description = StrUtil.emptyToDefault(meta.getDescription(), "xzm的模板代码生成器");
         String author = StrUtil.emptyToDefault(meta.getAuthor(), "xzm");
         String basePackage = StrUtil.blankToDefault(meta.getBasePackage(), "com.yupi");

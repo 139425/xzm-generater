@@ -23,11 +23,11 @@ public class TemplateMakerTest {
     @Test
     public void testMakeTemplateBug1() {
         Meta meta = new Meta();
-        meta.setName("acm-template-generator");
+        meta.setName("acm-template-generator.bat");
         meta.setDescription("ACM 示例模板生成器");
 
         String projectPath = System.getProperty("user.dir");
-        String originProjectPath = new File(projectPath).getParent() + File.separator + "code-generator-demo-projects/springboot-init";
+        String originProjectPath = new File(projectPath).getParent() + File.separator + "code-generator.bat-demo-projects/springboot-init";
 
         // 文件参数配置
         String inputFilePath1 = "src/main/resources/application.yml";
@@ -56,11 +56,11 @@ public class TemplateMakerTest {
     @Test
     public void testMakeTemplateBug2() {
         Meta meta = new Meta();
-        meta.setName("acm-template-generator");
+        meta.setName("acm-template-generator.bat");
         meta.setDescription("ACM 示例模板生成器");
 
         String projectPath = System.getProperty("user.dir");
-        String originProjectPath = new File(projectPath).getParent() + File.separator + "yuzi-generator-demo-projects/springboot-init";
+        String originProjectPath = new File(projectPath).getParent() + File.separator + "yuzi-generator.bat-demo-projects/springboot-init";
 
         // 文件参数配置，扫描目录
         String inputFilePath1 = "src/main/java/com/yupi/springbootinit/common";

@@ -12,17 +12,17 @@ public class FileGenerator {
 
 
 
-        String projectPath = System.getProperty("user.dir")+ File.separator + "code-generator-basic";
+        String projectPath = System.getProperty("user.dir")+ File.separator + "code-generator.bat-basic";
         File parentFile = new File(projectPath).getParentFile();
-        String inputPath = new File(parentFile, "code-generator-demo-projects/acm-template").getAbsolutePath();
+        String inputPath = new File(parentFile, "code-generator.bat-demo-projects/acm-template").getAbsolutePath();
         String outputPath = projectPath;
 
         //生成静态文件
         StaticFileGenerator.copyFilesByHutool(inputPath, outputPath);
 
         //生成动态文件
-        String inputDynamicPath = projectPath + File.separator + "src/main/resources/templates/MainTemplete.java.ftl.java.ftl";
-        String outputDynamicPath = projectPath + File.separator + "acm-template/src/com/yupi/acm/MainTemplete.java.ftl.java";
+        String inputDynamicPath = projectPath + File.separator + "src/main/resources/templates/MainTemplate.java.ftl.java.ftl";
+        String outputDynamicPath = projectPath + File.separator + "acm-template/src/com/yupi/acm/MainTemplate.java.ftl.java";
         DynamicFileGenerator.doGenerate(inputDynamicPath, outputDynamicPath, model);
     }
 }
