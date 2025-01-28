@@ -4,7 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.yupi.web.meta.Meta;
+import com.yupi.maker.meta.Meta;
 import com.yupi.web.model.entity.Generator;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
