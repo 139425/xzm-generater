@@ -1,19 +1,20 @@
-package com.yupi.web.common;
+package com.yupi.web.model.dto.generator;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * 删除请求
+ * 制作代码生成器请求
  */
 @Data
-public class DeleteRequest implements Serializable {
+public class GeneratorCacheRequest implements Serializable {
 
     /**
-     * id
+     * 生成器id
      */
     private Long id;
+
 
     private static final long serialVersionUID = 1L;
 }
