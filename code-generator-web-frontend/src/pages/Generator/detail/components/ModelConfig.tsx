@@ -120,4 +120,3 @@ const ModelConfig: React.FC<Props> = (props) => {
 };
 
 export default ModelConfig;
-

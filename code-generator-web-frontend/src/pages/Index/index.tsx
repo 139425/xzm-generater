@@ -1,19 +1,23 @@
 import {
-  listGeneratorVoByPageFastUsingPost,
+  listGeneratorVoByPageFastUsingPost
 } from '@/services/backend/generatorController';
-import { UserOutlined } from '@ant-design/icons';
 import { PageContainer, ProFormSelect, ProFormText, QueryFilter } from '@ant-design/pro-components';
-import { Link } from '@umijs/max';
 import { Avatar, Card, Flex, Image, Input, List, message, Tabs, Tag, Typography } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'umi';
+
+import {PlusOutlined, UserOutlined} from '@ant-design/icons';
+import { FileTextOutlined } from '@ant-design/icons';
+import { FloatButton } from 'antd';
+
 
 /**
  * 默认分页参数
  */
 const DEFAULT_PAGE_PARAMS: PageRequest = {
   current: 1,
-  pageSize: 4,
+  pageSize: 12,
   sortField: 'createTime',
   sortOrder: 'descend',
 };
@@ -85,6 +89,7 @@ const IndexPage: React.FC = () => {
           }}
           onSearch={(value: string) => {
             setSearchParams({
+              ...searchParams,
               ...DEFAULT_PAGE_PARAMS,
               searchText: value,
             });
@@ -92,6 +97,30 @@ const IndexPage: React.FC = () => {
         />
       </Flex>
       <div style={{ marginBottom: 16 }} />
+
+      <FloatButton
+        icon={<FileTextOutlined />}
+        description="帮助文档"
+        shape="square"
+        href={"https://fcninvhzzhwz.feishu.cn/wiki/FzvcwtbCkiJZM7ktN1kcHpysnlb"}
+        type={"primary"}
+        style={{
+          insetInlineStart: 50,
+          insetBlockEnd:450,
+
+        }}
+      />
+      <FloatButton
+        description="wx"
+        icon={<PlusOutlined />}
+        shape="square"
+        type={"primary"}
+        style={{
+          insetInlineStart: 50,
+          insetBlockEnd:390,
+
+        }}
+      />
 
       <Tabs
         size="large"
@@ -159,25 +188,25 @@ const IndexPage: React.FC = () => {
         renderItem={(data) => (
           <List.Item>
             <Link to={`/generator/detail/${data.id}`}>
-                <Card hoverable cover={<Image alt={data.name} src={data.picture} />}>
-                  <Card.Meta
-                    title={<a>{data.name}</a>}
-                    description={
-                      <Typography.Paragraph ellipsis={{ rows: 2 }} style={{ height: 44 }}>
-                        {data.description}
-                      </Typography.Paragraph>
-                    }
-                  />
-                  {tagListView(data.tags)}
-                  <Flex justify="space-between" align="center">
-                    <Typography.Text type="secondary" style={{ fontSize: 12 }}>
-                      {moment(data.createTime).fromNow()}
-                    </Typography.Text>
-                    <div>
-                      <Avatar src={data.user?.userAvatar ?? <UserOutlined />} />
-                    </div>
-                  </Flex>
-                </Card>
+              <Card hoverable cover={<Image alt={data.name} src={data.picture} />}>
+                <Card.Meta
+                  title={<a>{data.name}</a>}
+                  description={
+                    <Typography.Paragraph ellipsis={{ rows: 2 }} style={{ height: 44 }}>
+                      {data.description}
+                    </Typography.Paragraph>
+                  }
+                />
+                {tagListView(data.tags)}
+                <Flex justify="space-between" align="center">
+                  <Typography.Text type="secondary" style={{ fontSize: 12 }}>
+                    {moment(data.createTime).fromNow()}
+                  </Typography.Text>
+                  <div>
+                    <Avatar src={data.user?.userAvatar ?? <UserOutlined />} />
+                  </div>
+                </Flex>
+              </Card>
             </Link>
           </List.Item>
         )}
@@ -187,3 +216,9 @@ const IndexPage: React.FC = () => {
 };
 
 export default IndexPage;
+
+
+
+
+
+

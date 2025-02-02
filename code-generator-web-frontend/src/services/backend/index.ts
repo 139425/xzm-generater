@@ -4,9 +4,11 @@
 // API 唯一标识：
 import * as fileController from './fileController';
 import * as generatorController from './generatorController';
+import * as healthyController from './healthyController';
 import * as userController from './userController';
 export default {
   fileController,
   generatorController,
+  healthyController,
   userController,
 };

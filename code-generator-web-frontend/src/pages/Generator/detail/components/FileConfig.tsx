@@ -143,4 +143,3 @@ const FileConfig: React.FC<Props> = (props) => {
 };
 
 export default FileConfig;
-
