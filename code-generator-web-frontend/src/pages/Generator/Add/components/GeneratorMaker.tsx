@@ -1,39 +1,38 @@
 import FileUploader from '@/components/FileUploader';
 import { makeGeneratorUsingPost } from '@/services/backend/generatorController';
+import { ProFormInstance } from '@ant-design/pro-components';
 import { ProForm, ProFormItem } from '@ant-design/pro-form';
-import { Collapse, Form, message } from 'antd';
+import { Collapse, message } from 'antd';
 import { saveAs } from 'file-saver';
+import { useRef } from 'react';
 
 interface Props {
-  meta: API.GeneratorAddRequest | API.GeneratorEditRequest;
+  meta: any;
 }
 
-/**
- * 生成器制作
- * @param props
- */
 export default (props: Props) => {
   const { meta } = props;
-  const [form] = Form.useForm();
+  const formRef = useRef<ProFormInstance>();
 
   /**
    * 提交
    * @param values
    */
   const doSubmit = async (values: API.GeneratorMakeRequest) => {
-    // 校验
+    // 数据转换
     if (!meta.name) {
       message.error('请填写名称');
       return;
     }
 
+    // 文件列表转 url
     const zipFilePath = values.zipFilePath;
     if (!zipFilePath || zipFilePath.length < 1) {
       message.error('请上传模板文件压缩包');
       return;
     }
 
-    // 文件列表转 url
+    // 文件列表转换成 url
     // @ts-ignore
     values.zipFilePath = zipFilePath[0].response;
 
@@ -50,7 +49,7 @@ export default (props: Props) => {
       // 使用 file-saver 来保存文件
       saveAs(blob, meta.name + '.zip');
     } catch (error: any) {
-      message.error('下载失败，' + error.message);
+      message.error('制作失败，' + error.message);
     }
   };
 
@@ -59,7 +58,7 @@ export default (props: Props) => {
    */
   const formView = (
     <ProForm
-      form={form}
+      formRef={formRef}
       submitter={{
         searchConfig: {
           submitText: '制作',

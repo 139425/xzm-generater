@@ -12,6 +12,7 @@ import { FileTextOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 
 
+
 /**
  * 默认分页参数
  */
@@ -74,6 +75,31 @@ const IndexPage: React.FC = () => {
 
   return (
     <PageContainer title={<></>}>
+
+      <FloatButton
+        icon={<FileTextOutlined />}
+        description="帮助文档"
+        shape="square"
+        href={"https://fcninvhzzhwz.feishu.cn/wiki/FzvcwtbCkiJZM7ktN1kcHpysnlb"}
+        type={"primary"}
+        style={{
+          insetInlineStart: 50,
+          insetBlockEnd:450,
+
+        }}
+      />
+      <FloatButton
+        description="wx"
+        icon={<PlusOutlined />}
+        shape="square"
+        href={"https://fcninvhzzhwz.feishu.cn/wiki/AmBUwBkE0iTHNLkbJdRcuWg4nHg"}
+        type={"primary"}
+        style={{
+          insetInlineStart: 50,
+          insetBlockEnd:390,
+
+        }}
+      />
       <Flex justify="center">
         <Input.Search
           style={{
@@ -97,30 +123,6 @@ const IndexPage: React.FC = () => {
         />
       </Flex>
       <div style={{ marginBottom: 16 }} />
-
-      <FloatButton
-        icon={<FileTextOutlined />}
-        description="帮助文档"
-        shape="square"
-        href={"https://fcninvhzzhwz.feishu.cn/wiki/FzvcwtbCkiJZM7ktN1kcHpysnlb"}
-        type={"primary"}
-        style={{
-          insetInlineStart: 50,
-          insetBlockEnd:450,
-
-        }}
-      />
-      <FloatButton
-        description="wx"
-        icon={<PlusOutlined />}
-        shape="square"
-        type={"primary"}
-        style={{
-          insetInlineStart: 50,
-          insetBlockEnd:390,
-
-        }}
-      />
 
       <Tabs
         size="large"
@@ -216,9 +218,3 @@ const IndexPage: React.FC = () => {
 };
 
 export default IndexPage;
-
-
-
-
-
-

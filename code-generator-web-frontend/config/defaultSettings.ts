@@ -15,7 +15,7 @@ const Settings: ProLayoutProps & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: '代码生成',
+  title: 'CodePulse  代码生成',
   pwa: true,
   iconfontUrl: '',
   token: {

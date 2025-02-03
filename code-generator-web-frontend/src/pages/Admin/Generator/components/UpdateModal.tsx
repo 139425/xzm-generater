@@ -59,7 +59,10 @@ const UpdateModal: React.FC<Props> = (props) => {
         type="form"
         columns={columns}
         form={{
-          initialValues: oldData,
+          initialValues: {
+            ...oldData,
+            tags: JSON.parse(oldData.tags || '[]'),
+          },
         }}
         onSubmit={async (values: API.GeneratorAddRequest) => {
           const success = await handleUpdate({

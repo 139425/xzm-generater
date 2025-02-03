@@ -3,12 +3,12 @@ package ${basePackage}.model;
 import lombok.Data;
 
 <#macro generateModel indent modelInfo>
-    <#if modelInfo.description??>
+<#--    <#if modelInfo.description??>
         ${indent}/**
         ${indent} * ${modelInfo.description}
         ${indent} */
-    </#if>
-    ${indent}public ${modelInfo.type} ${modelInfo.fieldName}<#if modelInfo.defaultValue??> = ${modelInfo.defaultValue?c}</#if>;
+    </#if>-->
+    ${indent}public ${modelInfo.type} ${modelInfo.fieldName}<#--<#if modelInfo.defaultValue??> = ${modelInfo.defaultValue?c}</#if>-->;
 </#macro>
 
 /**
@@ -24,10 +24,6 @@ public class DataModel {
         * ${modelInfo.groupName}
         */
         public ${modelInfo.type} ${modelInfo.groupKey} = new ${modelInfo.type}();
-
-        /**
-        * ${modelInfo.description}
-        */
         @Data
         public static class ${modelInfo.type} {
         <#list modelInfo.models as modelInfo>

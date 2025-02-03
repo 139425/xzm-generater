@@ -3,7 +3,7 @@ import { userRegisterUsingPost } from '@/services/backend/userController';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginForm, ProFormText } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
-import { Helmet, history } from '@umijs/max';
+import { Helmet, history, useModel } from '@umijs/max';
 import { message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { Link } from 'umi';
@@ -15,6 +15,7 @@ import Settings from '../../../../config/defaultSettings';
  */
 const UserRegisterPage: React.FC = () => {
   const [type, setType] = useState<string>('account');
+  const { initialState, setInitialState } = useModel('@@initialState');
   const containerClassName = useEmotionCss(() => {
     return {
       display: 'flex',
@@ -57,14 +58,14 @@ const UserRegisterPage: React.FC = () => {
           padding: '32px 0',
         }}
       >
-        <LoginForm<API.UserRegisterRequest>
+        <LoginForm
           contentStyle={{
             minWidth: 280,
             maxWidth: '75vw',
           }}
           logo={<img alt="logo" style={{ height: '100%' }} src="/logo.png" />}
-          title="代码生成"
-          subTitle={'代码生成器制作共享，开发效率up'}
+          title="鱼籽代码生成"
+          subTitle={'代码生成器在线制作共享，大幅提升开发效率'}
           initialValues={{
             autoLogin: true,
           }}
@@ -74,7 +75,7 @@ const UserRegisterPage: React.FC = () => {
             },
           }}
           onFinish={async (values) => {
-            await handleSubmit(values);
+            await handleSubmit(values as API.UserLoginRequest);
           }}
         >
           <Tabs
@@ -124,7 +125,7 @@ const UserRegisterPage: React.FC = () => {
                   size: 'large',
                   prefix: <LockOutlined />,
                 }}
-                placeholder={'请再次确认密码'}
+                placeholder={'请输入确认密码'}
                 rules={[
                   {
                     required: true,
