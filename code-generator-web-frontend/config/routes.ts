@@ -3,11 +3,12 @@ export default [
     path: '/user',
     layout: false,
     routes: [
-      { path: '/user/login', component: './User/Login' },
+      { path: '/user/login',component: './User/Login' },
       { path: '/user/register', component: './User/Register' },
     ],
   },
-  { path: '/', icon: 'home', component: './Index', name: '主页' },
+  { path: '/', icon: 'home',  component: './Index', name: '主页' },
+
   {
     path: '/generator/add',
     icon: 'plus',
@@ -57,6 +58,12 @@ export default [
         name: '生成器管理',
       },
     ],
+  },
+  {
+    path: '/generator/ai',
+    icon: 'BulbOutlined',
+    component: './ai',
+    name: 'ai代码助手',
   },
   { path: '/', redirect: '/welcome' },
   { path: '*', layout: false, component: './404' },

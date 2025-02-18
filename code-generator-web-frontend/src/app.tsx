@@ -24,6 +24,7 @@ export async function getInitialState(): Promise<InitialState> {
       initialState.currentUser = res.data;
     } catch (error: any) {
       // 如果未登录
+      history.replace(loginPath);
     }
 
     // 模拟登录用户

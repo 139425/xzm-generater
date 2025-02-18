@@ -8,17 +8,17 @@ spring:
   # todo 需替换配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/my_db
-    username: root
-    password: 123456
+    url: jdbc:mysql://43.143.241.8:3306/my_db
+    username: my_db_user
+    password: 3367924701.Xzm
   # Redis 配置
   # todo 需替换配置
   redis:
     database: 1
-    host: localhost
+    host: 43.143.241.8
     port: 6379
     timeout: 5000
-    password: 123456
+    password: 3367924701.Xzm
   # Elasticsearch 配置
 mybatis-plus:
   configuration:
@@ -30,3 +30,11 @@ knife4j:
     enable: true
     username: root
     password: 123456
+cos:
+  client:
+    accessKey: AKIDKpCUimDVbT7XklY7RWOQejcittfCWcU8
+    secretKey: av2vZzA8lX6RailhdONErQmxueBUZP0N
+    region: ap-shanghai
+    bucket: xzm-1338474323
+siliconflow:
+  api-key: sk-rswtmrvkhpgamldyqyoehvqscrzotsjatzbvgxqfxtjgzcav
