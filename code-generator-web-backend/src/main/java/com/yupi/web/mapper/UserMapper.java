@@ -8,7 +8,6 @@ import com.yupi.web.model.entity.User;
  */
 public interface UserMapper extends BaseMapper<User> {
 
-
 }
 
 

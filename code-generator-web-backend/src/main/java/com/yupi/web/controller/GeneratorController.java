@@ -106,7 +106,7 @@ public class GeneratorController {
         generator.setIsDelete(0);
         generator.setCreateTime(new Date());
         generator.setCreateTime(new Date());
-       // generator.setId();
+        // generator.setId();
         boolean result = generatorService.save(generator);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         Long newGeneratorId = generator.getId();

@@ -1,17 +1,22 @@
 package com.yupi.web.controller;
 
-import cn.hutool.json.JSONUtil;
 import com.yupi.web.common.BaseResponse;
 import com.yupi.web.common.ErrorCode;
 import com.yupi.web.common.ResultUtils;
+import com.yupi.web.constant.AiChatConstant;
+import com.yupi.web.model.dto.aiChat.AiChatRequest;
+import com.yupi.web.service.UserService;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kong.unirest.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,78 +26,106 @@ import java.util.Map;
 @RequestMapping("/ai")
 public class aiChatController {
 
+    @Autowired
+    HttpServletRequest httpServletRequest;
+
+    @Autowired
+    UserService userService;
+
+
+
     @PostMapping("/chat")
-    public BaseResponse<String> sendMessage(@RequestBody String message) {
+    public BaseResponse<String> sendMessage(@RequestBody AiChatRequest aiChatRequest) {
         try {
-            String requestBody = buildRequestBody(message);
-            System.out.println("Request Body: " + requestBody); // 打印请求体
+            //判断是否登录
+            if(userService.getLoginUserPermitNull(httpServletRequest)==null){
+                //如果未登录，直接返回提示信息
+                return ResultUtils.success("未登录，请先注册登录");
+            }else{
+                Unirest.config()
+                        .reset()
+                        .connectTimeout(3000000)  // 连接超时设置为300秒
+                        .socketTimeout(3000000);// 读取超时设置为300秒
 
-            HttpResponse<String> response = Unirest.post("https://api.siliconflow.cn/v1/chat/completions")
-                    .header("Authorization", "Bearer " + "sk-rswtmrvkhpgamldyqyoehvqscrzotsjatzbvgxqfxtjgzcav")
-                    .header("Content-Type", "application/json")
-                    .body(requestBody)
-                    .asString();
+                //SseEmitter emitter = new SseEmitter(300_000L);
+                String requestBody = buildRequestBody(aiChatRequest);
+                System.out.println("Request Body: " + requestBody); // 打印请求体
 
-            if (response.getStatus() >= 400) {
-                System.err.println("API Error Response: " + response.getBody());
-                return ResultUtils.error(ErrorCode.OPERATION_ERROR, "API Error: " + response.getStatus() + " - " + response.getStatusText());
+                //轨迹流动发起api请求
+                HttpResponse<String> response = Unirest.post("https://api.siliconflow.cn/v1/chat/completions")
+                        .header("Authorization", "Bearer " + AiChatConstant.KEY)
+                        .header("Content-Type", "application/json")
+                        .body(requestBody)
+                        .asString();
+
+
+                if (response.getStatus() >= 400) {
+                    System.err.println("API Error Response: " + response.getBody());
+                    return ResultUtils.error(ErrorCode.OPERATION_ERROR, "API Error: " + response.getStatus() + " - " + response.getStatusText());
+                }
+                //处理返回的字符串，对于推理模型和非推理模型分开讨论com
+                String result = response.getBody();
+
+                String content = new JSONObject(result)
+                        .getJSONArray("choices")
+                        .getJSONObject(0)
+                        .getJSONObject("message")
+                        .getString("content");
+                //System.out.println(content);
+
+                JSONObject js = new JSONObject(result)
+                        .getJSONArray("choices")
+                        .getJSONObject(0)
+                        .getJSONObject("message");
+
+                String thinking="";
+                if(js.has("reasoning_content")){
+                    thinking = js.getString("reasoning_content");
+                }
+
+                String answer = "\n"+content;
+                if(StringUtils.hasText(thinking)){
+                    answer= "思考：\n"+thinking+"\n\n"+"回答：\n"+content;
+                }
+                //System.out.println(answer);
+                return ResultUtils.success(answer);
             }
-            //处理返回的字符串
-            String result = response.getBody();
-            String content = new JSONObject(result)
-                    .getJSONArray("choices")
-                    .getJSONObject(0)
-                    .getJSONObject("message")
-                    .getString("content");
 
-            JSONObject js = new JSONObject(result)
-                    .getJSONArray("choices")
-                    .getJSONObject(0)
-                    .getJSONObject("message");
 
-            String thinking="";
-            if(js.has("reasoning_content")){
-                 thinking = js.getString("reasoning_content");
-            }
-
-            String answer = "回答: \n \n\n"+content;
-            if(StringUtils.hasText(thinking)){
-                answer= "思考：\n \n\n"+thinking+"\n \n\n"+"回答: \n \n\n"+content;
-            }
-            System.out.println(answer);
-            return ResultUtils.success(answer);
         } catch (UnirestException e) {
             return ResultUtils.error(ErrorCode.API_ERROR, "Request failed: " + e.getMessage());
         }
     }
 
-    private String buildRequestBody(String userMessage) {
-        String prompt = "请记住你是一个帮别人解决代码问题的工具，名字叫CodePulse，" +
-                "你是CodePulse代码生成平台的助手，平台介绍如下：可以，下载、在线使用和制作代码生成器，" +
-                "帮助文档地址：https://fcninvhzzhwz.feishu.cn/wiki/FzvcwtbCkiJZM7ktN1kcHpysnlb"+
-                "别人可以问你任何问题，你要尽力的帮助别人解决问题，" +
-                "当别人问你是谁或者网站功能之类的问题的时候，根据上面的内容回答，" +
-                "当向你提出问题时，你不需要做自我介绍，直接进行解答，下面是我要对你进行的提问：";
+    private String buildRequestBody(AiChatRequest ai) {
+
         try {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, Object> requestBody = new HashMap<>();
-            requestBody.put("model", "Qwen/Qwen2.5-7B-Instruct");
+            requestBody.put("model", ai.getModel());
 
             List<Map<String, String>> messages = new ArrayList<>();
             Map<String, String> message = new HashMap<>();
-            message.put("role", "user");
-            message.put("content",prompt+ userMessage);
+            message.put("role", Role(ai.getRole()));
+            message.put("content",/*prompt+*/ ai.getMessage());
             messages.add(message);
 
             requestBody.put("messages", messages);
             requestBody.put("stream", false);
-            requestBody.put("max_tokens", 3000);
-            requestBody.put("temperature", 0.9);
-            requestBody.put("top_p", 0.7);
+            requestBody.put("max_tokens", ai.getMaxToken());
+            requestBody.put("temperature", ai.getTemperature());
+            requestBody.put("top_p", ai.getTopP());
+            requestBody.put("top_k", ai.getTopK());
+            requestBody.put("frequency_penalty", ai.getFrequencyPenalty());
 
             return mapper.writeValueAsString(requestBody);
         } catch (Exception e) {
             throw new RuntimeException("Failed to build request body", e);
         }
+    }
+    private String Role(Integer  i){
+        if(i.equals(2))return "assistant";
+        if(i.equals(3)) return "system";
+        else return "user";
     }
 }

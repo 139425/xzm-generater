@@ -83,8 +83,8 @@ const IndexPage: React.FC = () => {
         href={"https://fcninvhzzhwz.feishu.cn/wiki/FzvcwtbCkiJZM7ktN1kcHpysnlb"}
         type={"primary"}
         style={{
-          insetInlineStart: 50,
-          insetBlockEnd:450,
+          insetInlineStart: 0,
+          insetBlockEnd:490,
 
         }}
       />
@@ -95,8 +95,8 @@ const IndexPage: React.FC = () => {
         href={"https://fcninvhzzhwz.feishu.cn/wiki/AmBUwBkE0iTHNLkbJdRcuWg4nHg"}
         type={"primary"}
         style={{
-          insetInlineStart: 50,
-          insetBlockEnd:390,
+          insetInlineStart: 0,
+          insetBlockEnd:440,
 
         }}
       />

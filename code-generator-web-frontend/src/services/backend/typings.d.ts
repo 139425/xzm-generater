@@ -1,4 +1,15 @@
 declare namespace API {
+  type AiChatRequest = {
+    frequencyPenalty?: number;
+    maxToken?: number;
+    message?: string;
+    model?: string;
+    role?: number;
+    temperature?: number;
+    topK?: number;
+    topP?: number;
+  };
+
   type BaseResponseBoolean_ = {
     code?: number;
     data?: boolean;
@@ -316,6 +327,10 @@ declare namespace API {
     searchCount?: boolean;
     size?: number;
     total?: number;
+  };
+
+  type SseEmitter = {
+    timeout?: number;
   };
 
   type testDownloadFileUsingGETParams = {
